@@ -1,0 +1,49 @@
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+  
+  <div class="w-full max-w-md bg-gray-300 h-3 rounded-full mb-8 overflow-hidden">
+    <div 
+      class="bg-blue-500 h-full transition-all duration-500 ease-out"
+      [style.width.%]="progress">
+    </div>
+  </div>
+
+  <div class="group perspective w-80 h-96 cursor-pointer" (click)="toggleFlip()">
+    <div 
+      class="relative w-full h-full duration-500 preserve-3d shadow-xl rounded-xl"
+      [class.rotate-y-180]="isFlipped">
+      
+      <div class="absolute inset-0 backface-hidden bg-white rounded-xl flex items-center justify-center p-6 text-center border-2 border-blue-100">
+        <div>
+          <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Question</span>
+          <h2 class="text-2xl font-semibold text-gray-800 mt-2">{{ questions[currentIndex].question }}</h2>
+          <p class="text-sm text-gray-400 mt-10 italic">Click to reveal answer</p>
+        </div>
+      </div>
+
+      <div class="absolute inset-0 backface-hidden rotate-y-180 bg-blue-600 rounded-xl flex items-center justify-center p-6 text-center text-white">
+        <div>
+          <span class="text-xs font-bold text-blue-200 uppercase tracking-widest">Answer</span>
+          <p class="text-xl font-medium mt-2">{{ questions[currentIndex].answer }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-4 mt-8">
+    <button 
+      (click)="prevCard(); $event.stopPropagation()"
+      [disabled]="currentIndex === 0"
+      class="px-6 py-2 bg-white text-gray-700 rounded-lg shadow hover:bg-gray-50 disabled:opacity-50 transition-colors">
+      Previous
+    </button>
+    
+    <button 
+      (click)="nextCard(); $event.stopPropagation()"
+      [disabled]="currentIndex === questions.length - 1"
+      class="px-6 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 disabled:opacity-50 transition-colors">
+      Next
+    </button>
+  </div>
+
+  <p class="mt-4 text-gray-500 text-sm">Card {{ currentIndex + 1 }} of {{ questions.length }}</p>
+</div>
